@@ -4,7 +4,7 @@ $sql="select * from productos where id=".$_GET['id']."";
 $resultados=mysqli_query($conexion,$sql);
 $fila=mysqli_fetch_array($resultados);
 if(isset($_POST['nombre'])){
-    $sql="update productos set nombre='nombre',precio='precio',cantidad='cantidad' where id=".$_POST['id']."";
+    $sql="update productos set nombre='".$_POST['nombre']."',precio='".$_POST['precio']."',cantidad='".$_POST['cantidad']."' where id=".$_POST['id']."";
     mysqli_query($conexion,$sql);
     header('location: index.php');
 }
@@ -18,7 +18,7 @@ if(isset($_POST['nombre'])){
     <title>Document</title>
 </head>
 <body>
-    <form action="agregar.php" method="post">
+    <form action="modificar.php" method="post">
         <input type="text" name='nombre' placeholder="Nombre" value='<?php echo $fila['nombre'] ?>' require>
         <input type="number" name='precio' placeholder="Precio" value='<?php echo $fila['precio'] ?>' require>
         <input type="number" name='cantidad' placeholder="Cantidad" value='<?php echo $fila['cantidad'] ?>' require>
