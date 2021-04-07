@@ -38,6 +38,12 @@ if(isset($_GET['limpiar'])){
     <title>Document</title>
 </head>
 <body>
+    <form action="carritoadministador.php" method="post">
+        <input type="text" name="buscar" placeholder="Buscar">
+    </form>
+    <?php
+    if(isset($_POST['buscar'])){
+    ?>
 <table>
         <tr>
             <th>Nombre</th>
@@ -48,7 +54,11 @@ if(isset($_GET['limpiar'])){
             <th>Eliminar</th>
         </tr>
         <?php
-            $sql="select productos.nombre,productos.precio,carrito.cantidad,carrito.id from carrito,productos where carrito.id_producto=productos.id and usuario='".$_SESSION['usuario']."'";
+          
+          
+              $buscar=$_POST['buscar'];
+          
+            $sql="select productos.nombre,productos.precio,carrito.cantidad,carrito.id from carrito,productos where carrito.id_producto=productos.id and usuario='".$_POST['buscar']."'";
             
             $resultados=mysqli_query($conexion,$sql);
             $total=0;
@@ -75,12 +85,15 @@ if(isset($_GET['limpiar'])){
         ?>
     </table>
     $<?php echo $total; ?>
-        <a href="carrito.php?limpiar=1">Limpiar carrito</a>
+    <a href="carritoadministrador.php?limpiar=1">Limpiar carrito</a>
+<?php
+}
+?>
 </body>
 <script>
     function eliminar(id){
         if(confirm("Deseas eliminar el registro")){
-            window.location="carrito.php?eliminar="+id;
+            window.location="carritoadministrador.php?eliminar="+id;
         }
     }
 </script>
